@@ -9,7 +9,7 @@ namespace KOS_MOS
         /// <summary>
         /// This is the Discord token from the bot.
         /// </summary>
-        private const string DiscordToken = "MTA1ODQ4NDI1NjM3ODE5NTk2OA.GxpmJT.S2b4Xgb_rQNeeuGT_4matbvJVZyRJq0NqBug8Y";
+        private const string DiscordToken = "";
 
         /// <summary>
         /// Init.
