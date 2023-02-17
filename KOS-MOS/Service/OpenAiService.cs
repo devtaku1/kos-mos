@@ -8,10 +8,7 @@ namespace KOS_MOS.Service
 {
     public class OpenAiService
     {
-        /// <summary>
-        /// This is the OpenAI API key.
-        /// </summary>
-        private const string ChatGptApiKey = "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";
+        private static readonly string? ChatGptApiKey = Environment.GetEnvironmentVariable("CHATGPT_API_KEY");
 
         /// <summary>
         /// Url to the OpenAI API.

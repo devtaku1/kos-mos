@@ -6,10 +6,7 @@ namespace KOS_MOS
 {
     public class Program
     {
-        /// <summary>
-        /// This is the Discord token from the bot.
-        /// </summary>
-        private const string DiscordToken = "";
+        private static readonly string? DiscordToken = Environment.GetEnvironmentVariable("DISCORD_BOT_TOKEN");
 
         /// <summary>
         /// Init.
@@ -26,6 +23,10 @@ namespace KOS_MOS
         /// <returns></returns>
         public static async Task MainAsync()
         {
+            // Load up Environment Variables
+            DotNetEnv.Env.Load();
+            DotNetEnv.Env.TraversePath().Load();
+
             // Create a config with specified gateway intents
             var config = new DiscordSocketConfig
             {
