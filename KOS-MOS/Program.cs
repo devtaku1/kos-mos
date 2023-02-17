@@ -27,7 +27,7 @@ namespace KOS_MOS
             DotNetEnv.Env.Load();
             DotNetEnv.Env.TraversePath().Load();
 
-            // Create a config with specified gateway intents
+            //Creates a config with specified gateway intents
             var config = new DiscordSocketConfig
             {
                 GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
@@ -59,7 +59,30 @@ namespace KOS_MOS
         /// <returns></returns>
         private static async Task HandleCommand(SocketMessage message)
         {
-            if (message.Content.StartsWith("!chat")) await OpenAiService.ChatGpt(message);
+            var success = true;
+
+            // Check if the message starts with one of these commands
+            switch (message.Content)
+            {
+                case { } chat when chat.StartsWith("!chat"):
+                    await Log(new LogMessage(LogSeverity.Info, nameof(HandleCommand),
+                        "Received !chat command: " + message.Content));
+                    success = await OpenAiService.ChatGpt(message);
+                    break;
+                case { } image when image.StartsWith("!image"):
+                    await Log(new LogMessage(LogSeverity.Info, nameof(HandleCommand),
+                        "Received !image command: " + message.Content));
+                    success = await OpenAiService.DallE(message);
+                    break;
+                default:
+                    await Log(new LogMessage(LogSeverity.Info, nameof(HandleCommand),
+                        "No command found, normal message"));
+                    break;
+            }
+
+            if (!success)
+                await Log(new LogMessage(LogSeverity.Warning, nameof(HandleCommand),
+                    "Error with one of the request to the Apis!"));
         }
 
         /// <summary>
